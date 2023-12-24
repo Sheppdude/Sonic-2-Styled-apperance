@@ -1,0 +1,8 @@
+{
+	"supersonic_sleep_0":  { "File": "character_supersonic_sleep.bmp", "Rect": "3,1,33,44", "Center": "19,20" },
+	"supersonic_sleep_1":  { "File": "character_supersonic_sleep.bmp", "Rect": "52,1,38,44", "Center": "20,20" },
+	"supersonic_sleep_2":  { "File": "character_supersonic_sleep.bmp", "Rect": "97,1,33,44", "Center": "18,20" },
+	"supersonic_sleep_3":  { "File": "character_supersonic_sleep.bmp", "Rect": "148,1,36,44", "Center": "19,20" },
+	"supersonic_sleep_4":  { "File": "character_supersonic_sleep.bmp", "Rect": "196,1,49,43", "Center": "21,20" },
+	"supersonic_sleep_5":  { "File": "character_supersonic_sleep.bmp", "Rect": "245,1,49,43", "Center": "23,20" }
+}

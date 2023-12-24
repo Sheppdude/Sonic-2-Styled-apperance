@@ -1,0 +1,19 @@
+function u64 stringformat(u64 format, u64 arg1)
+{
+    if (format == "character_knuckles_0x%02x")
+    {
+        if (arg1 >= 0x01) && (arg1 <= 0x30)
+        {
+            if (knucklesfall == 1)
+            {
+			    format = "character_knuckles_0xcb"
+			    arg1 = (level.framecounter >> 0) % 1            
+            }
+        }
+        else
+        {
+            return base.stringformat(format, arg1)
+        }
+    }
+    return base.stringformat(format, arg1)
+}

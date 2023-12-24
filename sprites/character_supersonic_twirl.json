@@ -1,0 +1,7 @@
+{
+	"supersonic_twirl_0":  { "File": "character_supersonic_twirl.bmp", "Rect": "1,1,29,42", "Center": "14,19" },
+	"supersonic_twirl_1":  { "File": "character_supersonic_twirl.bmp", "Rect": "38,2,29,42", "Center": "14,19" },
+	"supersonic_twirl_2":  { "File": "character_supersonic_twirl.bmp", "Rect": "76,2,29,42", "Center": "14,19" },
+	"supersonic_twirl_3":  { "File": "character_supersonic_twirl.bmp", "Rect": "118,2,29,42", "Center": "14,19" },
+	"supersonic_twirl_4":  { "File": "character_supersonic_twirl.bmp", "Rect": "156,2,29,42", "Center": "14,19" }
+}

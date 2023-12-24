@@ -1,0 +1,22 @@
+{
+	"super_fly_0":  { "File": "character_supersonic_fly.bmp", "Rect": "0,0,36,35", "Center": "24,17" },
+	"super_fly_1":  { "File": "character_supersonic_fly.bmp", "Rect": "37,0,37,36", "Center": "24,17" },
+	"super_fly_2":  { "File": "character_supersonic_fly.bmp", "Rect": "0,0,37,35", "Center": "24,17" },
+	"super_fly_3":  { "File": "character_supersonic_fly.bmp", "Rect": "37,0,37,36", "Center": "24,17" },
+	"super_fly_down_0":  { "File": "character_supersonic_fly.bmp", "Rect": "0,35,37,34", "Center": "24,17" },
+	"super_fly_down_1":  { "File": "character_supersonic_fly.bmp", "Rect": "37,36,37,34", "Center": "24,16" },
+	"super_fly_down_2":  { "File": "character_supersonic_fly.bmp", "Rect": "0,35,37,34", "Center": "24,17" },
+	"super_fly_down_3":  { "File": "character_supersonic_fly.bmp", "Rect": "37,36,37,34", "Center": "24,16" },
+	"super_fly_up_0":  { "File": "character_supersonic_fly.bmp", "Rect": "0,72,37,35", "Center": "23,16" },
+	"super_fly_up_1":  { "File": "character_supersonic_fly.bmp", "Rect": "37,72,37,36", "Center": "23,16" },
+	"super_fly_up_2":  { "File": "character_supersonic_fly.bmp", "Rect": "0,72,37,35", "Center": "23,16" },
+	"super_fly_up_3":  { "File": "character_supersonic_fly.bmp", "Rect": "37,72,37,36", "Center": "23,16" },
+	"super_fly_down_pre_0":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "1,0,36,34", "Center": "22,16" },
+	"super_fly_down_pre_1":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "38,0,36,34", "Center": "22,16" },
+	"super_fly_down_pre_2":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "1,0,36,34", "Center": "22,16" },
+	"super_fly_down_pre_3":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "38,0,36,34", "Center": "22,16" },
+	"super_fly_up_pre_0":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "1,35,36,34", "Center": "22,16" },
+	"super_fly_up_pre_1":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "38,35,36,36", "Center": "22,16" },
+	"super_fly_up_pre_2":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "1,35,36,34", "Center": "22,16" },
+	"super_fly_up_pre_3":  { "File": "character_supersonic_fly_trans.bmp", "Rect": "38,35,36,36", "Center": "22,16" }
+}

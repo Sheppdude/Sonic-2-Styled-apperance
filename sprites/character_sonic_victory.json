@@ -1,0 +1,15 @@
+{
+	"sonic_victory_base_0":  { "File": "character_sonic_victory.bmp", "Rect": "5,8,33,40", "Center": "19,21" },
+	"sonic_victory_base_1":  { "File": "character_sonic_victory.bmp", "Rect": "56,8,40,40", "Center": "19,21" },
+	"sonic_victory_base_2":  { "File": "character_sonic_victory.bmp", "Rect": "102,8,38,40", "Center": "19,21" },
+	"sonic_victory_base_3":  { "File": "character_sonic_victory.bmp", "Rect": "157,8,33,40", "Center": "19,21" },
+	"sonic_victory_base_4":  { "File": "character_sonic_victory.bmp", "Rect": "207,8,42,40", "Center": "19,21" },
+	"sonic_victory_base_5":  { "File": "character_sonic_victory.bmp", "Rect": "250,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_6":  { "File": "character_sonic_victory.bmp", "Rect": "299,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_7":  { "File": "character_sonic_victory.bmp", "Rect": "347,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_8":  { "File": "character_sonic_victory.bmp", "Rect": "521,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_9":  { "File": "character_sonic_victory.bmp", "Rect": "392,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_10":  { "File": "character_sonic_victory.bmp", "Rect": "436,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_11":  { "File": "character_sonic_victory.bmp", "Rect": "478,8,42,40", "Center": "24,21" },
+	"sonic_victory_base_12":  { "File": "character_sonic_victory.bmp", "Rect": "521,8,42,40", "Center": "24,21" }
+}

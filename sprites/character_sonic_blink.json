@@ -1,0 +1,11 @@
+{
+	"sonic_idle":  { "File": "character_sonic_blink.bmp", "Rect": "1,1,30,43", "Center": "17,22" },
+	"sonic_blink_0":  { "File": "character_sonic_blink.bmp", "Rect": "40,1,30,43", "Center": "17,22" },
+	"sonic_blink_1":  { "File": "character_sonic_blink.bmp", "Rect": "79,1,30,43", "Center": "17,22" },
+	"sonic_blink_2":  { "File": "character_sonic_blink.bmp", "Rect": "118,1,30,43", "Center": "17,22" },
+	"sonic_blink_3":  { "File": "character_sonic_blink.bmp", "Rect": "157,1,30,43", "Center": "17,22" },
+    "sonic_blink_4":  { "File": "character_sonic_blink.bmp", "Rect": "118,1,30,43", "Center": "17,22" },
+    "sonic_blink_5":  { "File": "character_sonic_blink.bmp", "Rect": "79,1,30,43", "Center": "17,22" },
+    "sonic_blink_6":  { "File": "character_sonic_blink.bmp", "Rect": "40,1,30,43", "Center": "17,22" }
+ 
+}

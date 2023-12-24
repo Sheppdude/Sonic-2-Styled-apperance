@@ -1,0 +1,6 @@
+{
+	"tails_dash_0":  { "File": "character_tails_dash.bmp", "Rect": "1,8,40,40", "Center": "23,25" },
+	"tails_dash_1":  { "File": "character_tails_dash.bmp", "Rect": "50,8,40,40", "Center": "23,25" },
+	"tails_dash_2":  { "File": "character_tails_dash.bmp", "Rect": "99,8,40,40", "Center": "23,25" },
+	"tails_dash_3":  { "File": "character_tails_dash.bmp", "Rect": "148,8,40,40", "Center": "23,25" }
+}

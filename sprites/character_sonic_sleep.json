@@ -1,0 +1,7 @@
+{
+	"sonic_sleep_0":  { "File": "character_sonic_sleep.bmp", "Rect": "1,1,33,40", "Center": "19,20" },
+	"sonic_sleep_1":  { "File": "character_sonic_sleep.bmp", "Rect": "51,1,33,40", "Center": "19,20" },
+	"sonic_sleep_2":  { "File": "character_sonic_sleep.bmp", "Rect": "97,1,33,40", "Center": "19,20" },
+	"sonic_sleep_3":  { "File": "character_sonic_sleep.bmp", "Rect": "152,1,33,40", "Center": "19,20" },
+	"sonic_sleep_4":  { "File": "character_sonic_sleep.bmp", "Rect": "202,1,42,40", "Center": "19,20" }
+}

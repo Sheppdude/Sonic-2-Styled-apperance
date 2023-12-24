@@ -1,0 +1,6 @@
+{
+	"sonic_fall_0":  { "File": "character_sonic_fall.bmp", "Rect": "9,3,29,44", "Center": "14,19" },
+	"sonic_fall_1":  { "File": "character_sonic_fall.bmp", "Rect": "53,3,29,44", "Center": "14,19" },
+	"sonic_fall_2":  { "File": "character_sonic_fall.bmp", "Rect": "102,3,29,44", "Center": "14,19" },
+	"sonic_fall_3":  { "File": "character_sonic_fall.bmp", "Rect": "143,3,29,44", "Center": "14,19" }
+}

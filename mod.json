@@ -1,0 +1,56 @@
+{
+	"Metadata": {
+		"Name": "S2 Styled Apperance",
+		"Author": "Sheppdude",
+		"Description": "A breed of S2 and S3 design choices to make a Sonic 2 sprite sheet for S3 which fits the game's style.",
+		"URL": "https://gamebanana.com/mods/446363",
+		"ModVersion": "4.0b4"
+	},
+	"Settings": {
+		"List": [
+			{
+				"InternalName": "PeeloutStyle",
+				"DisplayName": "Peelout Animation Style",
+				"Variable": "peeloutstyle",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "CD Styled",
+					"1": "Mania Styled"
+
+				}
+			
+			}, 
+			{
+				"InternalName": "SuperPeeloutStyle",
+				"DisplayName": "Super Peelout Animation Style",
+				"Variable": "suppeeloutstyle",
+				"DefaultValue": "0",
+				"Options": {
+					"0": "Adventure/Modern Syled",
+					"1": "Triple Trouble 16-bit Styled"
+
+				}
+			},
+			{
+				"InternalName": "stt16bfx",
+				"DisplayName": "Final Trouble FX in DDZ",
+				"Variable": "stt16bfx",
+				"DefaultValue":"1",
+				"Options": {
+					"0": "Disabled",
+					"1": "Enabled"
+				}
+			},
+			{
+				"InternalName": "sonicvictoryanim",
+				"DisplayName": "Sonic's Victory Animation",
+				"Variable": "sonicvictoryanim",
+				"DefaultValue":"1",
+				"Options": {
+					"0": "Default",
+					"1": "Custom"
+				}
+			}
+		]
+	}
+}

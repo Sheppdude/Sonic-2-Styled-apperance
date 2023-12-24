@@ -1,0 +1,6 @@
+{
+	"super_peelout_tt_0":  { "File": "character_supersonic_peelout.bmp", "Rect": "0,0,64,58", "Center": "20,20" },
+	"super_peelout_tt_1":  { "File": "character_supersonic_peelout.bmp", "Rect": "68,7,71,71", "Center": "20,30" },
+	"super_peelout_tt_2":  { "File": "character_supersonic_peelout.bmp", "Rect": "143,4,77,81", "Center": "19,32" },
+	"super_peelout_tt_3":  { "File": "character_supersonic_peelout.bmp", "Rect": "225,0,83,88", "Center": "21,40" }
+}

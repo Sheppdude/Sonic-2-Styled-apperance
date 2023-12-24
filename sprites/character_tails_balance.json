@@ -1,0 +1,9 @@
+{
+	"tails_balance_0":  { "File": "character_tails_balance.bmp", "Rect": "0,0,32,33", "Center": "24,17" },
+	"tails_balance_1":  { "File": "character_tails_balance.bmp", "Rect": "32,0,36,33", "Center": "26,17" },
+	"tails_balance_2":  { "File": "character_tails_balance.bmp", "Rect": "68,0,35,33", "Center": "25,17" },
+	"tails_balance_3":  { "File": "character_tails_balance.bmp", "Rect": "32,0,35,33", "Center": "26,17" },
+	"tails_balance_4":  { "File": "character_tails_balance.bmp", "Rect": "144,0,39,33", "Center": "24,17" },
+	"tails_balance_5":  { "File": "character_tails_balance.bmp", "Rect": "103,0,41,33", "Center": "24,17" },
+	"tails_balance_6":  { "File": "character_tails_balance.bmp", "Rect": "183,0,38,33", "Center": "22,17" }
+}

@@ -1,0 +1,5 @@
+{
+	"knux_glide_turnaround_0":  { "File": "character_knuckles_glide_turnaround.bmp", "Rect": "0,1,48,39", "Center": "24,18" },
+	"knux_glide_turnaround_1":  { "File": "character_knuckles_glide_turnaround.bmp", "Rect": "57,1,48,39", "Center": "24,18" },
+	"knux_glide_turnaround_2":  { "File": "character_knuckles_glide_turnaround.bmp", "Rect": "104,0,48,39", "Center": "26,18" }
+}

@@ -1,0 +1,6 @@
+{
+
+	"monitor_icon_sonic":           { "File": "monitors.bmp", "Rect":"64,32,16,16", "Center": "8,8" },
+	"monitor_icon_tails":           { "File": "monitors.bmp", "Rect":"80,32,16,16", "Center": "8,8" },
+	"monitor_icon_knuckles":        { "File": "monitors.bmp", "Rect":"96,32,16,16", "Center": "8,8" }
+}

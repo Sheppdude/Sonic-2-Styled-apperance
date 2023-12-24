@@ -1,0 +1,9 @@
+{
+	"cutscene_knuckles_3_0x00":  { "File": "cutscene_knuckles_3.bmp", "Rect": "0,0,40,32", "Center": "26,11" },
+	"cutscene_knuckles_3_0x01":  { "File": "cutscene_knuckles_3.bmp", "Rect": "46,0,32,32", "Center": "19,12" },
+	"cutscene_knuckles_3_0x02":  { "File": "cutscene_knuckles_3.bmp", "Rect": "86,0,32,32", "Center": "19,12" },
+	"cutscene_knuckles_3_0x03":  { "File": "cutscene_knuckles_3.bmp", "Rect": "126,4,32,24", "Center": "19,4" },
+	"cutscene_knuckles_3_0x04":  { "File": "cutscene_knuckles_3.bmp", "Rect": "166,4,32,24", "Center": "19,4" },
+	"cutscene_knuckles_3_0x05":  { "File": "cutscene_knuckles_3.bmp", "Rect": "206,4,32,24", "Center": "19,4" },
+	"cutscene_knuckles_3_0x06":  { "File": "cutscene_knuckles_3.bmp", "Rect": "242,4,40,24", "Center": "18,4" }
+}

@@ -1,0 +1,169 @@
+global s16 blinktimer //Blinking Timer
+global s16 waittimer //Super & Hyper Sonic Idle Timer
+global s16 sleeptimer //Time until Sonic falls asleep
+
+function void Standalone.onRestartAtCheckpoint()
+{
+    blinktimer = 0 
+	waittimer = 0
+	sleeptimer = 0
+    base.Standalone.onRestartAtCheckpoint()
+}
+
+function u64 stringformat(u64 format, u64 arg1)
+{
+     if (format == "character_sonic_0x%02x") 
+     {
+
+			if (!arg1 == 0xba)
+			{
+				blinktimer = 0
+			}	
+			if (char.state != char.state.STANDING)
+			{
+				sleeptimer = 0
+			} 		
+			if (arg1 == 0xba)
+			{
+				++blinktimer
+				if (blinktimer >= 240) 
+				{
+                    format = "sonic_blink_%d"
+                    arg1 = (level.framecounter >> 0) % 7
+				}
+				else if (blinktimer <= 240) 
+				{
+			        format = "sonic_idle"
+					arg1 = (level.framecounter >> 0) % 1
+ 				}
+				if (blinktimer > 247)
+				{
+					blinktimer = 0
+				}
+			}
+		if (global.level_started) 
+		{
+			if (char.state == char.state.STANDING) 
+			{
+			   if (sleeptimer != 10931) 
+			   {
+               ++sleeptimer 
+			   }
+			   if (sleeptimer >= 10850)
+			   {
+				  blinktimer = 0
+				  if (sleeptimer < 10900) && (sleeptimer >= 10860)
+				  {
+			        format = "sonic_sleep_0"
+					arg1 = (level.framecounter >> 0) % 1                        
+				  }
+				  if (sleeptimer < 10910) && (sleeptimer >= 10900)
+				  {
+					format = "sonic_sleep_1"
+					arg1 = (level.framecounter >> 0) % 1 
+				  }
+				  if (sleeptimer < 10920) && (sleeptimer >= 10910)
+				  {
+					format = "sonic_sleep_2"
+					arg1 = (level.framecounter >> 0) % 1 
+				  }
+				  if (sleeptimer < 10930) && (sleeptimer >= 10920)
+				  {
+					format = "sonic_sleep_3"
+					arg1 = (level.framecounter >> 0) % 1 
+				  }
+				  if (sleeptimer >= 10930)
+				  {
+					format = "sonic_sleep_4"
+					arg1 = (level.framecounter >> 0) % 1 
+				  }  
+			   }
+			}
+		}
+		
+     }
+   else if (format == "character_supersonic_0x%02x")
+   {
+	 
+	  if (char.state != char.state.STANDING)
+	  {
+		 waittimer = 0
+		 sleeptimer = 0
+	  }
+	  if (global.level_started) 
+	  {
+		if (char.state == char.state.STANDING) 
+		{
+		   ++sleeptimer 
+		   ++waittimer
+		   if (waittimer > 239) && (waittimer <=250)
+		   {
+			    format = "super_idle_0"
+				arg1 = (level.framecounter >> 0) % 1			  
+		   }
+		   if (waittimer > 250) && (waittimer <=260)
+		   {
+			    format = "super_idle_1"
+				arg1 = (level.framecounter >> 0) % 1			  
+		   }
+		   if (waittimer > 260) && (waittimer <=270)
+		   {
+			    format = "super_idle_2"
+				arg1 = (level.framecounter >> 0) % 1			  
+		   }
+		   if (waittimer > 270) && (waittimer <=280)
+		   {
+			    format = "super_idle_3"
+				arg1 = (level.framecounter >> 0) % 1			  
+		   }
+		   if (waittimer > 280)
+		   {
+			 	format = "super_idle_0"
+				arg1 = (level.framecounter >> 0) % 1
+				waittimer = 240			  
+		   }
+			if (sleeptimer >= 10850)
+			{
+				waittimer = 0
+			if (sleeptimer < 10900) && (sleeptimer >= 10860)
+			{
+			    format = "supersonic_sleep_0"
+				arg1 = (level.framecounter >> 0) % 1                        
+			}
+			if (sleeptimer < 10910) && (sleeptimer >= 10900)
+			{
+				format = "supersonic_sleep_1"
+				arg1 = (level.framecounter >> 0) % 1 
+			}
+			if (sleeptimer < 10920) && (sleeptimer >= 10910)
+			{
+				format = "supersonic_sleep_2"
+				arg1 = (level.framecounter >> 0) % 1 
+			}
+			if (sleeptimer < 10930) && (sleeptimer >= 10920)
+			{
+				format = "supersonic_sleep_3"
+				arg1 = (level.framecounter >> 0) % 1 
+			}
+			if (sleeptimer < 10940) && (sleeptimer >= 10930) 
+			{
+				format = "supersonic_sleep_4"
+				arg1 = (level.framecounter >> 0) % 1 
+			}
+			if (sleeptimer < 10950) && (sleeptimer >=10940) 
+           	{
+				format = "supersonic_sleep_5"
+				arg1 = (level.framecounter >> 0) % 1 
+			}
+			if (sleeptimer >=10950) 
+           	{
+				format = "supersonic_sleep_5"
+				arg1 = (level.framecounter >> 0) % 1 
+				sleeptimer = 10930
+			}
+		  }
+		}
+	  }
+   }
+	return base.stringformat(format, arg1)
+}

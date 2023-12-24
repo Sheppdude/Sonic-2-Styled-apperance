@@ -1,0 +1,32 @@
+
+function u64 stringformat(u64 format, u64 arg1) 
+{
+    if (format == "character_knuckles_0x%02x") 
+    {
+
+        if (knuckles.glideclimbstate & 0x02) 
+        {
+            if (arg1 == 0xc0) 
+            {
+                format = "knux_glide_%d"
+                arg1 = (level.framecounter >> 3) % 2
+            } 
+            if (arg1 == 0xc1) 
+            {
+                format = "knux_glide_turnaround_0"
+                arg1 = (level.framecounter >> 0) % 1
+            }
+            if (arg1 == 0xc2) 
+            {
+                format = "knux_glide_turnaround_1"
+                arg1 = (level.framecounter >> 0) % 1
+            }
+            if (arg1 == 0xc3) 
+            {
+                format = "knux_glide_turnaround_2"
+                arg1 = (level.framecounter >> 0) % 1
+            }                  
+        }  
+    }
+    return base.stringformat(format, arg1)
+}

@@ -1,0 +1,6 @@
+{
+	"supersonic_balance_0":  { "File": "character_supersonic_balance.bmp", "Rect": "0,1,30,46", "Center": "19,25" },
+	"supersonic_balance_1":  { "File": "character_supersonic_balance.bmp", "Rect": "30,1,30,46", "Center": "19,25" },
+	"supersonic_balance_2":  { "File": "character_supersonic_balance.bmp", "Rect": "61,1,30,46", "Center": "19,25" },
+	"supersonic_balance_3":  { "File": "character_supersonic_balance.bmp", "Rect": "91,1,30,46", "Center": "20,25" }
+}

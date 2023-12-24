@@ -1,0 +1,6 @@
+{
+	"super_idle_0":  { "File": "character_supersonic_idle.bmp", "Rect": "1,1,35,44", "Center": "21,24" },
+	"super_idle_1":  { "File": "character_supersonic_idle.bmp", "Rect": "37,1,35,44", "Center": "21,24" },
+	"super_idle_2":  { "File": "character_supersonic_idle.bmp", "Rect": "1,46,35,44", "Center": "21,24" },
+	"super_idle_3":  { "File": "character_supersonic_idle.bmp", "Rect": "37,46,35,44", "Center": "21,24" }
+}

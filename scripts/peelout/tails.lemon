@@ -1,0 +1,425 @@
+function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s16 py, bool asSmallGhost)
+{
+	//Thanks to the gamebanana tut on how to make fluid anims
+	//Note that modifying this function directly will cause other character anims to break
+	//Include this check everywhere you are editing the anim, or else it might modify something it's not meant to
+	if ((char.character == CHARACTER_TAILS)&& (( abs(char.groundspeed) >= 0xa99)&& (char.animation.sprite >= 0xc3 && char.animation.sprite <= 0xca) ))
+	{
+		return TailsDash(character, variant, px, py, asSmallGhost)
+	}
+	else if ((char.character == CHARACTER_KNUCKLES)&& (( abs(char.groundspeed) >= 0xa99)&& (char.animation.sprite >= 0x21 && char.animation.sprite <= 0x30))) 
+	{
+		return KnucklesDash(character, variant, px, py, asSmallGhost) // Tails' scripts take priority over Knuckles' so I have to call it here as well
+	}
+	else // Due to Sonic's animations being in the base modified version of the script, just call the original script
+	{
+        return base.Standalone.drawCharacterSprite(character, variant, px, py, asSmallGhost)
+	}
+}
+
+//Just Copy-paste the function with a different name
+function bool TailsDash(u8 character, u8 variant, s16 px, s16 py, bool asSmallGhost)
+{
+
+	bool isPlayer1 = (variant == 0)
+	u32 characterAddress = isPlayer1 ? 0xffffb000 : 0xffffb04a
+
+	// Check only needed for Tails' tails
+	if (variant == 2)
+	{
+		// No smooth rotation in Slot Machine
+		if (global.zone == 0x15)
+			return false
+
+		characterAddress = 0xffff0000 + u16[A0 + 0x30]
+
+		// Do not render when blinking after hit
+		if (u8[characterAddress + 0x34] != 0 && (u8[characterAddress + 0x34] & 0x04) == 0)
+		{
+			// Prevent emulator-like rendering
+			return true
+		}
+
+		// Do not render when Tails looks into the background (e.g. LBZ 2 end cutscene) and in DEZ gravity transporters
+		if (u8[characterAddress + 0x22] >= 0x55 && u8[characterAddress + 0x22] <= 0x5b)
+		{
+			// Prevent emulator-like rendering
+			return true
+		}
+
+		isPlayer1 = (characterAddress == 0xffffb000)
+		character = CHARACTER_TAILS
+	}
+
+	if (level.vertical_wrap == 0xff00)
+	{
+		// For vertically wrapping levels, "normalize" py into interval [-move_area.bottom.target * 3/4, -move_area.bottom.target * 1/4]
+		py &= level.height.bitmask
+		if (py > move_area.bottom.target * 3/4 && move_area.bottom.target >= 0xe0)	// move_area.bottom.target is very low in DEZ boss act
+			py -= move_area.bottom.target
+	}
+
+	u8 animationSprite = char.animation.sprite
+	u16 animationSpriteEx = Standalone.getModdedAnimationSpriteEx(character, animationSprite)
+	u8 flags = (char.render_flags & 0x03)
+	u8 angle = 0
+	u64 key = 0
+	u8 rotationMode = 0
+
+	if (variant < 2)
+	{
+		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
+		{
+			if (animationSprite >= 0xc3 && animationSprite <= 0xca)
+			{
+				animationSprite = 0xc3 + (animationSprite - 0xc3) % 4
+				rotationMode = 1
+			}
+
+			if (rotationMode != 0) // Using updating rendering scripts
+			{
+				bool useVanillaS3AIRRotation = true
+				if (Game.getSetting(SETTING_SMOOTH_ROTATION) == 2)
+				{
+					useVanillaS3AIRRotation = (char.flags & char.flag.IN_AIR || global.zone == 0x0c)	// Use in-air rotation in DDZ
+				}
+
+				if (useVanillaS3AIRRotation)
+				{
+					s8 oldRotation = isPlayer1 ? oldRotationPlayer1 : oldRotationPlayer2
+					flags = char.flags & char.flag.FACING_LEFT		// This really has to be "char.flags", not "char.render_flags"
+
+					angle = char.rotation
+					if (rotationMode == 1)
+					{
+						if (abs(s8(char.rotation)) <= 0x10 && abs(oldRotation) <= 0x10)
+						{
+							angle = 0
+						}
+
+						if (angle != char.rotation)
+						{
+							s8 diff = angle - oldRotation
+							angle = oldRotation + clamp(diff, -3, 3)
+						}
+					}	
+				}
+				else
+				{
+					// Mania-accurate rotation #contributed by Elsie The Pict
+					u8 oldRotation = isPlayer1 ? oldRotationPlayer1 : oldRotationPlayer2
+					flags = char.flags & char.flag.FACING_LEFT		// This really has to be "char.flags", not "char.render_flags"
+
+					angle = char.rotation
+					if (rotationMode == 1)
+					{
+						
+						if (char.rotation <= 0x04 || char.rotation >= 0xfc)
+							oldRotation = 0
+						else
+						{
+							u32 targetRotation = 0
+							if (char.rotation > 0x10 && char.rotation < 0xe8)
+								targetRotation = char.rotation
+								
+							u32 rotate = targetRotation - oldRotation
+							u32 shift = (abs(char.groundspeed) <= 0x6000) + 1
+							
+							if (abs(rotate) >= abs(rotate - 0x100))
+							{
+								if (abs(rotate - 0x200) < abs(rotate + 0x100))
+									oldRotation += (rotate - 0x100) >> shift
+								else
+									oldRotation += (rotate + 0x100) >> shift
+							}
+							else
+							{
+								if (abs(rotate) < abs(rotate + 0x100))
+									oldRotation += rotate >> shift
+								else
+									oldRotation += (rotate + 0x100) >> shift
+							}
+						}
+						
+						angle = oldRotation
+						angle &= 0xFF
+					}
+				}
+			}
+
+			if (isPlayer1)
+				oldRotationPlayer1 = angle
+			else
+				oldRotationPlayer2 = angle
+		}
+
+		if (character == CHARACTER_TAILS)// && animationSpriteEx == animationSprite) Tails Check (Last check absent or else it would interfere)
+		{
+		
+			if ((abs(char.groundspeed) >= 0xa99) && (animationSprite >= 0xc3) && (animationSprite <= 0xca)) 
+			{
+				// Use the peelout rotation already in S3AIR
+				if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
+				{
+					angle = (animationSprite - 0xc3) / 4 * 0xe0
+					if (char.flags & char.flag.FACING_LEFT)
+						angle = -angle
+					animationSprite = 0xc3 + (animationSprite - 0xc3) % 4
+				}
+				//Tails' Top speed
+				animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + ((level.framecounter >> 0) % 4)
+				key = stringformat("tails_dash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+                //if (super.active.tails)
+				//{
+				//   animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + ((level.framecounter >> 0) % 4)
+				//   key = stringformat("supertails_dash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+				//}
+				//else if (super.active.tails == 0xff)
+				//{
+				//   animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + ((level.framecounter >> 0) % 4)
+				//   key = stringformat("hypertails_dash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+				//}
+				//else
+				//{
+				//   animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + ((level.framecounter >> 0) % 4)
+				//   key = stringformat("tails_dash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+				//}
+				//Only use this if you are making custom super/hyper animations
+			}
+		}
+
+			if (Game.getSetting(SETTING_SMOOTH_ROTATION))
+		{
+			// Character
+			if (animationSprite >= 0x01 && animationSprite <= 0x20)
+			{
+				// Walking animation
+				animationSprite = 0x01 + (animationSprite - 0x01) % 8
+				rotationMode = 1
+			}
+			else if (animationSprite >= 0x21 && animationSprite <= 0x30)
+			{
+				// Running animation
+				animationSprite = 0x21 + (animationSprite - 0x21) % 4
+				rotationMode = 1
+			}
+			else if (animationSprite >= 0x78 && animationSprite <= 0x7f)
+			{
+				// Swinging animation
+				animationSprite = 0x78
+				rotationMode = 2
+			}
+			else if (character == CHARACTER_TAILS && animationSprite >= 0xc3 && animationSprite <= 0xca)
+			{
+				// Tails' fastest run animation
+				animationSprite = 0xc3 + (animationSprite - 0xc3) % 2
+				rotationMode = 1
+			}
+			else if (character == CHARACTER_KNUCKLES && animationSprite == 0xc0)
+			{
+				// Only for DDZ
+				rotationMode = 1
+			}
+
+			if (rotationMode != 0)
+			{
+				bool useVanillaS3AIRRotation = true
+				if (Game.getSetting(SETTING_SMOOTH_ROTATION) == 2)
+				{
+					useVanillaS3AIRRotation = (char.flags & char.flag.IN_AIR || global.zone == 0x0c)	// Use in-air rotation in DDZ
+				}
+
+				if (useVanillaS3AIRRotation)
+				{
+					s8 oldRotation = isPlayer1 ? oldRotationPlayer1 : oldRotationPlayer2
+					flags = char.flags & char.flag.FACING_LEFT		// This really has to be "char.flags", not "char.render_flags"
+
+					angle = char.rotation
+					if (rotationMode == 1)
+					{
+						if (abs(s8(char.rotation)) <= 0x10 && abs(oldRotation) <= 0x10)
+						{
+							angle = 0
+						}
+
+						if (angle != char.rotation)
+						{
+							s8 diff = angle - oldRotation
+							angle = oldRotation + clamp(diff, -3, 3)
+						}
+					}	
+				}
+				else
+				{
+					// Mania-accurate rotation #contributed by Elsie The Pict
+					u8 oldRotation = isPlayer1 ? oldRotationPlayer1 : oldRotationPlayer2
+					flags = char.flags & char.flag.FACING_LEFT		// This really has to be "char.flags", not "char.render_flags"
+
+					angle = char.rotation
+					if (rotationMode == 1)
+					{
+						
+						if (char.rotation <= 0x04 || char.rotation >= 0xfc)
+							oldRotation = 0
+						else
+						{
+							u32 targetRotation = 0
+							if (char.rotation > 0x10 && char.rotation < 0xe8)
+								targetRotation = char.rotation
+								
+							u32 rotate = targetRotation - oldRotation
+							u32 shift = (abs(char.groundspeed) <= 0x6000) + 1
+							
+							if (abs(rotate) >= abs(rotate - 0x100))
+							{
+								if (abs(rotate - 0x200) < abs(rotate + 0x100))
+									oldRotation += (rotate - 0x100) >> shift
+								else
+									oldRotation += (rotate + 0x100) >> shift
+							}
+							else
+							{
+								if (abs(rotate) < abs(rotate + 0x100))
+									oldRotation += rotate >> shift
+								else
+									oldRotation += (rotate + 0x100) >> shift
+							}
+						}
+						
+						angle = oldRotation
+						angle &= 0xFF
+					}
+				}
+			}
+
+			if (isPlayer1)
+				oldRotationPlayer1 = angle
+			else
+				oldRotationPlayer2 = angle
+		}
+
+
+		if (key == 0)
+		{
+			key = stringformat(stringformat("%s_0x%02x", getCharacterSpriteKey(character)), animationSprite)
+
+			if (!Renderer.hasCustomSprite(key))
+			{
+				u32 sourceBase    = (character == CHARACTER_SONIC) ? ((animationSprite >= 0xda) ? 0x140060 : 0x100000) : (character == CHARACTER_TAILS) ? ((animationSprite >= 0xd1) ? 0x143d00 : 0x3200e0) : 0x1200e0
+				u32 tableAddress  = (character == CHARACTER_SONIC) ? (super.active ? 0x148378 : 0x148182) : (character == CHARACTER_TAILS) ? 0x14a08a : 0x14bd0a
+				u32 mappingOffset = (character == CHARACTER_SONIC) ? (super.active ? 0x146816 : 0x146620) : (character == CHARACTER_TAILS) ? 0x148eb8 : 0x14a8d6		// Not really necessary here, we could also use "char.mapping_offset"
+
+				key = Renderer.setupCustomCharacterSprite(sourceBase, tableAddress, mappingOffset, animationSprite, 0x00)
+			}
+		}
+	}
+	else
+	{
+		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
+		{
+			// Tails' tails
+			if (animationSprite >= 0x05 && animationSprite <= 0x14)
+			{
+				animationSprite = 0x05 + (animationSprite - 0x05) % 4
+				angle = lookupAngleByVector(s16[characterAddress + 0x18], s16[characterAddress + 0x1a])
+
+				flags = 0
+				if (objA0.flags2a & 0x01)
+				{
+					flags |= SPRITE_FLAG_FLIP_X
+					angle += 0x80
+				}
+				if (global.inv_gravity)
+				{
+					flags ^= SPRITE_FLAG_FLIP_Y
+					angle = -angle
+				}
+			}
+		}
+
+		key = stringformat(stringformat("%s_tails_0x%02x", getCharacterSpriteKey(CHARACTER_TAILS)), animationSprite)
+		if (!Renderer.hasCustomSprite(key))
+		{
+			key = Renderer.setupCustomCharacterSprite(0x336620, 0x344d74, 0x344bb8, animationSprite, 0x00)
+		}
+	}
+
+	u16 renderQueue = 0xa000 - char.sprite_priority
+	u8 atex = (char.sprite_attributes >> 9) & 0x30
+	if (EXTENDED_CHARACTER_PALETTES)
+		atex = 0x40 + character * 0x20
+
+	if (char.sprite_attributes & sprite_attribute.PRIORITY)
+		flags |= SPRITE_FLAG_PRIO
+
+	if (rotationMode != 0 && global.inv_gravity)
+	{
+		// Correction for inverse gravity
+		angle = 128 - angle
+		flags ^= SPRITE_FLAG_FLIP_X
+	}
+
+		if (ROMDataAnalyser.isEnabled())
+	{
+		string category = (variant < 2) ? getCharacterSpriteKey(character) : stringformat("%s_tails", getCharacterSpriteKey(CHARACTER_TAILS))
+		Renderer.extractCustomSprite(key, category, animationSprite, atex)
+	}
+
+	// Render character
+	if (asSmallGhost)
+	{
+		Renderer.drawCustomSprite(key, px, py, atex, flags | SPRITE_FLAG_PRIO, 0xa800, angle, 0xc0ffffff, 0x8000)
+	}
+	else
+	{
+		Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue, angle, 255)
+	}
+
+	bool useAfterImages
+	if (isPlayer1)
+	{
+		if ((super.active == 0xff) || (super.active.tails == 0xff))
+		{
+			useAfterImages = true
+		}
+		else
+		{
+			if (Game.getSetting(SETTING_SPEEDUP_AFTERIMGS))
+			{
+				useAfterImages = ((u8[characterAddress + 0x2b] & char.bonus.SPEED_UP) != 0)
+			}
+		}
+	}
+
+	if (useAfterImages)
+	{
+		// Additional offset for Sonic charging a Super Peel-Out (either Hyper Sonic or with Speed Shoes)
+		s16 afterImagesOffsetX = 0
+		if (char.character == CHARACTER_SONIC && char.spindash == 0x80)
+		{
+			afterImagesOffsetX = (char.groundspeed >> 7) * ((char.flags & char.flag.FACING_LEFT) ? 1 : -1)
+		}
+
+		for (s8 i = 3; i > 0; --i)
+		{
+			A1 = 0xffffe500 + u8(posbackup.offset.player1 - (i * 8 + 4))
+			s16 px0 = u16[A1] - camera.foreground.x.u16 + (i * afterImagesOffsetX / 4)
+			s16 py0 = u16[A1+2] - camera.foreground.y.u16
+			if (level.vertical_wrap == 0xff00)	// Consider vertical level wrap
+				py0 &= level.height.bitmask
+			Renderer.drawCustomSprite(key, px0, py0, atex, flags, renderQueue - i, angle, 192 - i * 32)
+		}
+	}
+
+	// Prevent emulator-like rendering
+	return true
+}
+
+
+
+// Helper functions
+
+function u64 getCharacterBonusTextIcon(u8 character)
+{
+	return (character == CHARACTER_KNUCKLES) ? "hud_bonus_icon_red" : (character == CHARACTER_TAILS) ? "hud_bonus_icon_orange" : "hud_bonus_icon_blue"
+}

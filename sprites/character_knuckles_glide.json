@@ -1,0 +1,4 @@
+{
+	"knux_glide_0":  { "File": "character_knuckles_glide.bmp", "Rect": "29,1,48,39", "Center": "24,24" },
+	"knux_glide_1":  { "File": "character_knuckles_glide.bmp", "Rect": "78,1,48,39", "Center": "24,24" }
+}
