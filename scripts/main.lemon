@@ -266,12 +266,10 @@ function void Character.UpdateFallingTails()
 	    if (chars_transforming && (char.state == char.state.RUNNING) && char.velocity.y >= 0)
 	    {
 			tailsfall = 1
-			animreset = 0
 	    }
 	    else if (!chars_hurt && !chars_transforming && char.rotation.x == 0 && (char.state == char.state.RUNNING || chars_stand) && char.velocity.y > 282)
 	    {
 			tailsfall = 1
-			animreset = 0
 	    }
 		else
 	    {
@@ -293,12 +291,10 @@ function void Character.UpdateFallingKnuckles()
 	    if (knux_chars_transforming && (char.state == char.state.RUNNING) && char.velocity.y >= 0)
 	    {
 			knucklesfall = 1
-			animreset = 0
 	    }
 	    else if (!knux_chars_hurt && !knux_chars_transforming && char.rotation.x == 0 && (char.state == char.state.RUNNING || knux_chars_stand) && char.velocity.y > 282)
 	    {
 			knucklesfall = 1
-			animreset = 0
 	    }
 		else
 	    {
