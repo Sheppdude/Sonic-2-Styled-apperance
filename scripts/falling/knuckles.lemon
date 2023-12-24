@@ -4,7 +4,7 @@ function u64 stringformat(u64 format, u64 arg1)
     {
         if (arg1 >= 0x01) && (arg1 <= 0x30)
         {
-            if (knucklesfall == 1)
+            if (fall == 1)
             {
 			    format = "character_knuckles_0xcb"
 			    arg1 = (level.framecounter >> 0) % 1            

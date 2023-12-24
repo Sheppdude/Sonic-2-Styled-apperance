@@ -9,9 +9,8 @@ global u8 stt16bfx //Option for using STT 16 Bit sprites and sounds in DDZ
 global u8 sonicspringtwirl // For defining when Sonic has touched the spring (or any other object that triggers the animation), likewise for the rest of the characters
 global u8 tailsspringtwirl // Same as above
 global u8 knucklesspringtwirl // Same as above 
-global u8 sonicfall // Define when Sonic is in midair, same for the other characters
-global u8 tailsfall // Same as above
-global u8 knucklesfall // Same as above
+global u8 fall // Define when Sonic or Knuckles is in midair
+global u8 tailsfall // Custom Variable for partner tails
 global u8 sonicvictoryanim // Option for disabling Sonic's custom victory animation
 
 
@@ -26,7 +25,7 @@ function void Character.UpdateNormalState.Sonic()
 	{
 		sonicspringtwirl = 0
 	}
-    Character.UpdateFallingSonic()
+    Character.UpdateFallingSonicKnuckles()
 #if STANDALONE
  //Tweaked so that Super Sonic has top speed anims
 	if (Game.getSetting(SETTING_SUPERFAST_RUNANIM) && abs(char.groundspeed) >= 0x0d00)
@@ -89,7 +88,7 @@ function void Character.UpdateNormalState.Knuckles()
 	{
 		knucklesspringtwirl = 0
 	}
-	Character.UpdateFallingKnuckles()
+	Character.UpdateFallingSonicKnuckles()
 	base.Character.UpdateNormalState.Knuckles()
 }
 
@@ -231,7 +230,8 @@ function void Character.DDZFlying.Sonic() // Split into a seperate function for 
 	}
 
 }
-function void Character.UpdateFallingSonic()
+
+function void Character.UpdateFallingSonicKnuckles()
 {
 	bool sonic_chars_stand = (char.state == char.state.STANDING || char.state == char.state.LOOKING_UP || char.state == char.state.COWERING)
     bool sonic_chars_hurt = (char.state == char.state.FALLING_PANIC || char.state == char.state.GOT_HURT_PANIC || char.state == char.state.GOT_HURT)
@@ -240,20 +240,20 @@ function void Character.UpdateFallingSonic()
 	{
 	    if (sonic_chars_transforming && (char.state == char.state.RUNNING) && char.velocity.y >= 0)
 	    {
-            sonicfall = 1
+            fall = 1
 	    }
 	    else if (!sonic_chars_hurt && !sonic_chars_transforming && char.rotation.x == 0 && (char.state == char.state.RUNNING || sonic_chars_stand) && char.velocity.y > 282)
 	    {
-            sonicfall = 1
+            fall = 1
 	    }
 		else
 	    {
-		    sonicfall = 0
+		    fall = 0
 	    }
 	}
 	else
 	{
-		sonicfall = 0
+		fall = 0
 	}
 }
 function void Character.UpdateFallingTails()
@@ -281,31 +281,7 @@ function void Character.UpdateFallingTails()
 		tailsfall = 0
 	}
 }
-function void Character.UpdateFallingKnuckles()
-{
-	bool knux_chars_stand = (char.state == char.state.STANDING || char.state == char.state.LOOKING_UP || char.state == char.state.COWERING)
-    bool knux_chars_hurt = (char.state == char.state.FALLING_PANIC || char.state == char.state.GOT_HURT_PANIC || char.state == char.state.GOT_HURT)
-    bool knux_chars_transforming = (char.state.former == char.state.TAILS_TRANSFORM || char.state.former == char.state.TRANSFORMING)
-	if (char.spindash != 0x80 && char.state != char.state.SPINDASH && char.state != char.state.ROLLING && !char.rotation.x && char.state <= 0x08 && (char.flags & char.flag.IN_AIR))
-	{
-	    if (knux_chars_transforming && (char.state == char.state.RUNNING) && char.velocity.y >= 0)
-	    {
-			knucklesfall = 1
-	    }
-	    else if (!knux_chars_hurt && !knux_chars_transforming && char.rotation.x == 0 && (char.state == char.state.RUNNING || knux_chars_stand) && char.velocity.y > 282)
-	    {
-			knucklesfall = 1
-	    }
-		else
-	    {
-		    knucklesfall = 0
-	    }
-	}
-	else
-	{
-		knucklesfall = 0
-	}
-}
+
 
 // Fall Animation Reseting
 // For certain level specific objects that do not store data in unique character states, and probably the running state instead
@@ -313,98 +289,23 @@ function void Character.UpdateFallingKnuckles()
 //# address-hook(0x03efba) end(0x03f018)
 function void fn03efba() // Swinging Poles in MHZ
 {
-	sonicfall = 0
+	fall = 0
 	tailsfall = 0
-	knucklesfall = 0 
 	base.fn03efba()
 }
 
 //# address-hook(0x03145a) end(0x0314d0)
 function void fn03145a() // Conveyer Belt in HCZ
 {
-	// Update Sonic's animation while hanging on the conveyor belt (call this code to prevent things from breaking)
-
-	if (u16[A1 + 0x1c] == 0)
-	{
-		D0.u8 = u8[A2 + 0x04]
-		if (D0.u8 != 0)
-		{
-			if (D0.s8 < 0)
-			{
-				D0.u8 += 6
-				if (D0.s8 > 0)
-					D0 = 0
-			}
-			else
-			{
-				D0.u8 -= 6
-				if (D0.s8 < 0)
-					D0 = 0
-			}
-			u8[A2 + 0x04] = D0.u8
-		}
-	}
-	else
-	{
-		u16[A1 + 0x1c] = 0
-		D0.u8 = u8[A2 + 0x04] - 0x80
-		if (D0.u8 != 0)
-		{
-			if (D0.s8 < 0)
-			{
-				D0.u8 += 6
-				if (D0.s8 > 0)
-					D0 = 0
-			}
-			else
-			{
-				D0.u8 -= 6
-				if (D0.s8 < 0)
-					D0 = 0
-			}
-			u8[A2 + 0x04] = D0.u8 + 0x80
-		}
-	}
-
-	D0 = (u8[A2 + 0x04] >> 4) + u8[A2 + 0x08]
-	u8[A1 + 0x22] = u8[0x0314d2 + D0.u16]		// Player characters' belt movement sprites
-	D0.u16 &= 0x0f
-	objA1.position.y.u16 = objA0.position.y.u16 + s8[0x0314f2 + D0.u16]
-	sonicfall = 0
+	fall = 0
 	tailsfall = 0
-	knucklesfall = 0
+	base.fn03145a()
 }
 
 //# address-hook(0x033bba)
 function void fn033bba() // Cylinder in CNZ
 {
-	D0 = u8[A2]
-	u8[A2] += 4
-	LookupSinCos()
-	D3.u16 = D1.u16
-	D1.s16 >>= 2
-	D1.u16 += objA0.position.x.u16
-	D0 = u8[A1 + 0x1e]
-	D0.s32 = s32(D0.s16) * D3.s16
-	D0.s16 >>= 8
-	D1.u16 += D0.u16
-	objA1.position.x.u16 = D1.u16
-	D0 = u8[A2]
-	objA1.sprite_attributes &= ~sprite_attribute.PRIORITY
-	if (D0.u8 >= 0x80)
-	{
-		objA1.sprite_attributes |= sprite_attribute.PRIORITY
-	}
-	D0.u8 += 0x40
-	D0.s8 = -D0.s8
-	D0.u16 &= 0xff
-	D0.u16 = D0 / 0x0b
-	u8[A1 + 0x22] = u8[0x033c1c + D0.u16]		// Player characters' pole spinning sprites
-	u8[A1 + 0x20] = 0
-	D0 = u8[A1 + 0x22]
-	SetCharacterSpritePatterns()
-	sonicfall = 0
+	fall = 0
 	tailsfall = 0
-	knucklesfall = 0
+	base.fn033bba()
 }
-
