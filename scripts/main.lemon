@@ -12,7 +12,6 @@ global u8 knucklesspringtwirl // Same as above
 global u8 sonicfall // Define when Sonic is in midair, same for the other characters
 global u8 tailsfall // Same as above
 global u8 knucklesfall // Same as above
-global u8 animreset = 0 // To force functions to not call base animation functions in certain places, as that can break stuff
 global u8 sonicvictoryanim // Option for disabling Sonic's custom victory animation
 
 
@@ -378,7 +377,6 @@ function void fn03145a() // Conveyer Belt in HCZ
 	sonicfall = 0
 	tailsfall = 0
 	knucklesfall = 0
-	animreset = 1
 }
 
 //# address-hook(0x033bba)
@@ -412,6 +410,5 @@ function void fn033bba() // Cylinder in CNZ
 	sonicfall = 0
 	tailsfall = 0
 	knucklesfall = 0
-	animreset = 1
 }
 
