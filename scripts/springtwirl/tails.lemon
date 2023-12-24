@@ -5,8 +5,11 @@ function u64 stringformat(u64 format, u64 arg1)
     {
         if (tailsspringtwirl == 1)
         {
-			format = "tails_twirl_%d"
-			arg1 = (level.framecounter >> 3) % 5  
+            if (arg1 == 0x8b || arg1 == 0x8c)
+            {
+			    format = "tails_twirl_%d"
+			    arg1 = (level.framecounter >> 3) % 5  
+            }   
         }
     }
     return base.stringformat(format, arg1)

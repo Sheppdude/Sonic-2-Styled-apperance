@@ -5,8 +5,11 @@ function u64 stringformat(u64 format, u64 arg1)
     {
         if (knucklesspringtwirl == 1)
         {
+            if (arg1 == 0x8e)
+            {
 			    format = "knuckles_twirl_%d"
-				arg1 = (level.framecounter >> 3) % 5            
+			    arg1 = (level.framecounter >> 3) % 5  
+            }   
         }
     }
     return base.stringformat(format, arg1)
