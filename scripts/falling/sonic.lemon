@@ -7,7 +7,7 @@ function u64 stringformat(u64 format, u64 arg1)
             if (fall == 1)
             {
 			    format = "sonic_fall_%d"
-				arg1 = (level.framecounter >> 3) % 4
+				arg1 = (level.framecounter >> 3) % 3
             }         
         }
         else
