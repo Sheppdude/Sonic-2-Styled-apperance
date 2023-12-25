@@ -1,0 +1,6 @@
+{
+	"tails_fall_0":  { "File": "character_tails_fall.bmp", "Rect": "0,0,38,50", "Center": "21,24" },
+	"tails_fall_1":  { "File": "character_tails_fall.bmp", "Rect": "38,0,38,50", "Center": "21,24" },
+	"tails_fall_2":  { "File": "character_tails_fall.bmp", "Rect": "76,0,38,50", "Center": "21,24" },
+	"tails_fall_3":  { "File": "character_tails_fall.bmp", "Rect": "114,0,38,50", "Center": "21,24" }
+}
