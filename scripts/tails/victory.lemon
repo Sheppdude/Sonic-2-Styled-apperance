@@ -1,105 +1,102 @@
-global s16 victoryframe //Frame of animation
+global u8 tailsvictoryanim
+global s16 tailsvictoryframe //Frame of animation
 function u64 stringformat(u64 format, u64 arg1)
 {
-    if (format == "character_tails_0x%02x")
-    {
-      if(char.state == char.state.WIN_POSE) 
+   if (format == "character_tails_0x%02x")
+   {
+      if(char.state == char.state.WIN_POSE && tailsvictoryanim == 1) 
       {
-            if (arg1 >= 0xa5 && arg1<= 0xa6)
-            {
-               ++victoryframe
-               if (victoryframe <= 23)
-               {
-                  format = "tails_victory_0"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 23) && (victoryframe <= 29)
-               {
-                  format = "tails_victory_1"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 29) && (victoryframe <= 34)
-               {
-                  format = "tails_victory_2"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 34) && (victoryframe <= 38)
-               {
-                  format = "tails_victory_3"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 38) && (victoryframe <= 43)
-               {
-                  format = "tails_victory_4"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 43) && (victoryframe <= 47)
-               {
-                  format = "tails_victory_5"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 47) && (victoryframe <= 52)
-               {
-                  format = "tails_victory_6"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 52) && (victoryframe <= 57)
-               {
-                  format = "tails_victory_7"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 57) && (victoryframe <= 61)
-               {
-                  format = "tails_victory_8"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 61) && (victoryframe <= 66)
-               {
-                  format = "tails_victory_9"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 66) && (victoryframe <= 70)
-               {
-                  format = "tails_victory_10"
-                  arg1 = (level.framecounter >> 0) % 1  
-               } 
-               if (victoryframe > 70) && (victoryframe <= 75)
-               {
-                  format = "tails_victory_11"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 75) && (victoryframe <= 79)
-               {
-                  format = "tails_victory_12"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 79) && (victoryframe <= 83)
-               {
-                  format = "tails_victory_13"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 83) && (victoryframe <= 88)
-               {
-                  format = "tails_victory_14"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 88) && (victoryframe <= 92)
-               {
-                  format = "tails_victory_15"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-               if (victoryframe > 92) 
-               {
-                  format = "tails_victory_16"
-                  arg1 = (level.framecounter >> 0) % 1  
-               }
-
-            }
+         ++tailsvictoryframe
+         if (tailsvictoryframe <= 23)
+         {
+            format = "tails_victory_0"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 23) && (tailsvictoryframe <= 29)
+         {
+            format = "tails_victory_1"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 29) && (tailsvictoryframe <= 34)
+         {
+            format = "tails_victory_2"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 34) && (tailsvictoryframe <= 38)
+         {
+            format = "tails_victory_3"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 38) && (tailsvictoryframe <= 43)
+         {
+            format = "tails_victory_4"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 43) && (tailsvictoryframe <= 47)
+         {
+            format = "tails_victory_5"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 47) && (tailsvictoryframe <= 52)
+         {
+            format = "tails_victory_6"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 52) && (tailsvictoryframe <= 57)
+         {
+            format = "tails_victory_7"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 57) && (tailsvictoryframe <= 61)
+         {
+            format = "tails_victory_8"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 61) && (tailsvictoryframe <= 66)
+         {
+            format = "tails_victory_9"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 66) && (tailsvictoryframe <= 70)
+         {
+            format = "tails_victory_10"
+            arg1 = (level.framecounter >> 0) % 1  
+         } 
+         if (tailsvictoryframe > 70) && (tailsvictoryframe <= 75)
+         {
+            format = "tails_victory_11"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 75) && (tailsvictoryframe <= 79)
+         {
+            format = "tails_victory_12"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 79) && (tailsvictoryframe <= 83)
+         {
+            format = "tails_victory_13"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 83) && (tailsvictoryframe <= 88)
+         {
+            format = "tails_victory_14"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 88) && (tailsvictoryframe <= 92)
+         {
+            format = "tails_victory_15"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
+         if (tailsvictoryframe > 92) 
+         {
+            format = "tails_victory_16"
+            arg1 = (level.framecounter >> 0) % 1  
+         }
       }
       else 
       {
-         victoryframe = 0
+         return base.stringformat(format, arg1)
       }
-    }
-    return base.stringformat(format, arg1)
+   }
+   return base.stringformat(format, arg1)
 }
