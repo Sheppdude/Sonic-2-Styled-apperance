@@ -166,7 +166,7 @@
 	"character_tails_0xa3":  { "File": "character_tails.bmp", "Rect": "104,488,32,32", "Center": "19,15" },
 	"character_tails_0xa4":  { "File": "character_tails.bmp", "Rect": "152,488,32,32", "Center": "19,15" },
 	"character_tails_0xa5":  { "File": "character_tails.bmp", "Rect": "198,487,31,33", "Center": "19,17" },
-	"character_tails_0xa6":  { "File": "character_tails_victory.bmp", "Rect": "132,40,33,33", "Center": "23,17" },
+	"character_tails_0xa6":  { "File": "character_tails.bmp", "Rect": "244,484,40,40", "Center": "26,24" },
 	"character_tails_0xa7":  { "File": "character_tails.bmp", "Rect": "296,484,32,46", "Center": "14,19" },
 	"character_tails_0xa8":  { "File": "character_tails.bmp", "Rect": "344,484,32,44", "Center": "14,19" },
 	"character_tails_0xa9":  { "File": "character_tails.bmp", "Rect": "392,488,32,32", "Center": "17,16" },

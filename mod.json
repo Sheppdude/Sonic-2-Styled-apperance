@@ -50,6 +50,16 @@
 					"0": "Default",
 					"1": "Custom"
 				}
+			},
+			{
+				"InternalName": "tailsvictoryanim",
+				"DisplayName": "Tails' Victory Animation",
+				"Variable": "tailsvictoryanim",
+				"DefaultValue":"1",
+				"Options": {
+					"0": "Default",
+					"1": "Custom"
+				}
 			}
 		]
 	}

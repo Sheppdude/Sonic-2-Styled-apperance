@@ -309,3 +309,34 @@ function void fn033bba() // Cylinder in CNZ
 	tailsfall = 0
 	base.fn033bba()
 }
+
+// When Sonic is in the egg mobile in LBZ 2
+// Needs to update several functions to work properly
+
+//# address-hook(0x08d29c) end(0x08d2b0)
+function void fn08d29c() 
+{
+	fall = 0
+	tailsfall = 0
+	level.display_routine = A0.u16
+	setupObjectAttributesFull(0x08d562)
+
+	objA0.update_address = 0x08d2b6
+	objA0.render_flags |= render_flag.FLIP_X
+	fn08d2b6()
+}
+
+//# address-hook(0x08d2b6) end(0x08d33e)
+function void fn08d2b6() 
+{
+	fall = 0
+	tailsfall = 0
+	base.fn08d2b6()
+}
+//# address-hook(0x08d370) end(0x08d384)
+function void fn08d370()
+{
+	fall = 0
+	tailsfall = 0
+    base.fn08d370()
+}
