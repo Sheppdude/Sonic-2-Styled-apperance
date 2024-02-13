@@ -203,14 +203,14 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			} 
 			else if (!super.active) 
 			{
-	           if (peeloutstyle == 0)
-			   {
-				key = stringformat("sonic_peelout_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-			   }
-			   else if (peeloutstyle == 1) 
-			   {
-				key = stringformat("sonic_peelout_mania_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-			   }
+	            if (peeloutstyle == 0)
+			    {
+				    key = stringformat("sonic_peelout_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+			    }
+			    else if (peeloutstyle == 1) 
+			    {
+				    key = stringformat("sonic_peelout_mania_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+			    }
 			}
 		
 	
