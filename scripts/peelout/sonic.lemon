@@ -160,12 +160,16 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			  {
 				    if (suppeeloutstyle == 0) 
 				    {
-                    key = stringformat ("super_peelout_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+                        key = stringformat ("super_peelout_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
 				    }
 				    else if (suppeeloutstyle == 1) 
 				    {
-                    key = stringformat ("super_peelout_tt_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+                        key = stringformat ("super_peelout_tt_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
 				    }
+					else if (suppeeloutstyle == 2)
+					{
+                        key = stringformat ("super_peelout_sa_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+					}
 			  }
 			  else if (superflystate > 0) 
 			  {
