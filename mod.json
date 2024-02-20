@@ -27,8 +27,7 @@
 				"DefaultValue": "0",
 				"Options": {
 					"0": "Adventure/Modern Syled",
-					"1": "Triple Trouble 16-bit Styled",
-					"2": "Sonic Advance Styled"
+					"1": "Triple Trouble 16-bit Styled"
 
 				}
 			},
