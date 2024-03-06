@@ -32,42 +32,42 @@ function u64 stringformat(u64 format, u64 arg1)
                 format = "sonic_victory_base_4"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 25) && (sonicvictoryframe <= 35)
+            if (sonicvictoryframe > 25) && (sonicvictoryframe <= 32)
             {
                 format = "sonic_victory_base_5"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 35) && (sonicvictoryframe <= 45)
+            if (sonicvictoryframe > 32) && (sonicvictoryframe <= 42)
             {
                 format = "sonic_victory_base_6"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 45) && (sonicvictoryframe <= 55)
+            if (sonicvictoryframe > 42) && (sonicvictoryframe <= 52)
             {
                 format = "sonic_victory_base_7"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 55) && (sonicvictoryframe <= 65)
+            if (sonicvictoryframe > 52) && (sonicvictoryframe <= 62)
             {
                 format = "sonic_victory_base_8"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 65) && (sonicvictoryframe <= 70)
+            if (sonicvictoryframe > 62) && (sonicvictoryframe <= 67)
             {
                 format = "sonic_victory_base_9"
             arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 70) && (sonicvictoryframe <= 75)
+            if (sonicvictoryframe > 67) && (sonicvictoryframe <= 72)
             {
                 format = "sonic_victory_base_10"
                 arg1 = (level.framecounter >> 0) % 1  
             } 
-            if (sonicvictoryframe > 75) && (sonicvictoryframe <= 80)
+            if (sonicvictoryframe > 72) && (sonicvictoryframe <= 77)
             {
                 format = "sonic_victory_base_11"
                 arg1 = (level.framecounter >> 0) % 1  
             }
-            if (sonicvictoryframe > 80)
+            if (sonicvictoryframe > 77)
             {
                 format = "sonic_victory_base_12"
                 arg1 = (level.framecounter >> 0) % 1
