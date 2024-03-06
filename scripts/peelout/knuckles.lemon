@@ -9,7 +9,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	}
 	else
 	{
-    return base.Standalone.drawCharacterSprite(character, variant, px, py, asSmallGhost)
+        return base.Standalone.drawCharacterSprite(character, variant, px, py, asSmallGhost)
 	}
 }
 
