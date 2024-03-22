@@ -1,7 +1,7 @@
 include peelout
 include balance
 include victory
-include super
+include superidle
 include sonic/?
 include knuckles/?
 include springtwirl/?
@@ -22,6 +22,7 @@ global u8 tailsvictoryanim
 global s16 tailsvictoryframe
 global s16 tailsbalancingtime
 global u8 sonicvictoryframe
+
 
 function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s16 py, bool asSmallGhost)
 {
@@ -98,39 +99,54 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			}
 		}			
 	}
+	    if (character == CHARACTER_TAILS)
+		{
+			if (super.active.tails)
+			{
+                key = stringformat("character_supertails_0x%02x", animationSpriteEx)
+			}
+		}
+		if (char.character == CHARACTER_KNUCKLES)
+		{
+			if (super.active)
+			{
+                key = stringformat("character_superknuckles_0x%02x", animationSpriteEx)
+			}
+		}
+		// Why was this so easy to do lmao
 
 		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
 		{
-			// Character
-			if (animationSprite >= 0x01 && animationSprite <= 0x20)
-			{
-				// Walking animation
-				animationSprite = 0x01 + (animationSprite - 0x01) % 8
-				rotationMode = 1
-			}
-			else if (animationSprite >= 0x21 && animationSprite <= 0x30)
-			{
-				// Running animation
-				animationSprite = 0x21 + (animationSprite - 0x21) % 4
-				rotationMode = 1
-			}
-			else if (animationSprite >= 0x78 && animationSprite <= 0x7f)
-			{
-				// Swinging animation
-				animationSprite = 0x78
-				rotationMode = 2
-			}
-			else if (character == CHARACTER_TAILS && animationSprite >= 0xc3 && animationSprite <= 0xca)
-			{
-				// Tails' fastest run animation
-				animationSprite = 0xc3 + (animationSprite - 0xc3) % 2
-				rotationMode = 1
-			}
-			else if (character == CHARACTER_KNUCKLES && animationSprite == 0xc0)
-			{
-				// Only for DDZ
-				rotationMode = 1
-			}
+				if (animationSprite >= 0x01 && animationSprite <= 0x20)
+			    {
+				    // Walking animation
+				    animationSprite = 0x01 + (animationSprite - 0x01) % 8
+				    rotationMode = 1
+			    }
+			    else if (animationSprite >= 0x21 && animationSprite <= 0x30)
+			    {
+				    // Running animation
+				    animationSprite = 0x21 + (animationSprite - 0x21) % 4
+				    rotationMode = 1
+			    }
+			    else if (animationSprite >= 0x78 && animationSprite <= 0x7f)
+			    {
+				    // Swinging animation
+				    animationSprite = 0x78
+				    rotationMode = 2
+			    }
+			    else if (character == CHARACTER_TAILS && animationSprite >= 0xc3 && animationSprite <= 0xca)
+			    {
+				    // Tails' fastest run animation
+				    animationSprite = 0xc3 + (animationSprite - 0xc3) % 2
+				    rotationMode = 1
+			    }
+			    else if (character == CHARACTER_KNUCKLES && animationSprite == 0xc0)
+			    {
+				    // Only for DDZ
+				    rotationMode = 1
+			    }
+			
 
 			if (rotationMode != 0)
 			{
@@ -158,6 +174,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			else
 				oldRotationPlayer2 = angle
 		}
+
 
 		if (animationSpriteEx >= 0x100)
 		{
@@ -358,7 +375,32 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	return true
 }
 
+function u16 SuperSpriteRotation(u8 character, u16 animationSpriteEx)
+{
+	// Character
+	if (animationSpriteEx >= 0x01 && animationSpriteEx <= 0x20)
+	{
+		// Walking animation
+		animationSpriteEx = 0x01 + (animationSpriteEx - 0x01) % 1
+	}
+	else if (animationSpriteEx >= 0x21 && animationSpriteEx <= 0x30)
+	{
+		// Running animation
+		animationSpriteEx = 0x21 + (animationSpriteEx - 0x21) % 1
+	}
+	else if (animationSpriteEx >= 0x78 && animationSpriteEx <= 0x7f)
+	{
+		// Swinging animation
+		animationSpriteEx = 0x78
+	}
+	else if (character == CHARACTER_TAILS && animationSpriteEx >= 0xc3 && animationSpriteEx <= 0xca)
+    {
+		// Tails' fastest run animation
+		animationSpriteEx = 0xc3 + (animationSpriteEx - 0xc3) % 1
+	}
+	return animationSpriteEx
 
+}
 
 // Helper functions
 

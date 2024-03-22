@@ -1,0 +1,17 @@
+function u64 stringformat(u64 format, u64 arg1)
+{
+	if (format == "character_supertails_0x%02x")
+    {
+        if (arg1 >= 0xad) && (arg1 <= 0xaf)
+        {
+			format = "character_supertails_standing_%d"
+			arg1 = (level.framecounter >> 3) % 3  
+        }
+        else 
+        {
+            return base.stringformat(format, arg1)
+        }   
+    }
+
+    return base.stringformat(format, arg1)
+}

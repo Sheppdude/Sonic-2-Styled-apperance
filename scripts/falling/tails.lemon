@@ -10,10 +10,7 @@ function u64 stringformat(u64 format, u64 arg1)
 				arg1 = (level.framecounter >> 4) % 3
             }
         }
-    }
-    else
-    {
-        return base.stringformat(format, arg1)
+
     }
     return base.stringformat(format, arg1)
 }
