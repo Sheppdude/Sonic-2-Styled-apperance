@@ -1,0 +1,19 @@
+function u64 stringformat(u64 format, u64 arg1)
+{
+    if (format == "character_tails_0x%02x")
+    {
+        if (super.active.tails)
+        {
+            format = "character_supertails_0x%2x"
+        }
+    }
+    else if (format == "character_knuckles_0x%02x")
+    {
+        if (super.active)
+        {
+            format = "character_superknuckles_0x%2x"
+        }
+    }
+    return base.stringformat(format, arg1)
+}
+// Why was this part so easy to do lmao

@@ -1,4 +1,3 @@
-u8 knucklestwirlframe
 function u64 stringformat(u64 format, u64 arg1)
 {
     if (format == "character_knuckles_0x%02x")

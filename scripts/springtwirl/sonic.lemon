@@ -1,5 +1,4 @@
-u8 sonictwirlframe
-u8 supersonictwirlframe
+
 function u64 stringformat(u64 format, u64 arg1)
 {
     if (format == "character_sonic_0x%02x")

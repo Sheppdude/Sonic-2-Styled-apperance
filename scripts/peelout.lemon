@@ -1,0 +1,34 @@
+function u64 stringformat(u64 format, u64 arg1)
+{
+	if (format == "character_tails_0x%02x")
+    {
+        if (abs(char.groundspeed) >= 0xa99)
+        {
+			if (char.animation.sprite >= 0xc3 && char.animation.sprite <= 0xca)
+			{
+			    format = "tails_dash_%d"
+			    arg1 = (level.framecounter >> 0) % 4  
+			}
+        }   
+        else
+		{
+			return base.stringformat(format, arg1)
+		}
+    }
+    else if (format == "character_knuckles_0x%02x")
+    {
+        if (abs(char.groundspeed) >= 0xa99)
+        {
+			if (char.animation.sprite >= 0x21 && char.animation.sprite <= 0x30)
+			{
+			    format = "knuckles_dash_%d"
+			    arg1 = (level.framecounter >> 0) % 4  
+			}
+        }   
+        else
+		{
+			return base.stringformat(format, arg1)
+		}
+    }
+    return base.stringformat(format, arg1)
+}

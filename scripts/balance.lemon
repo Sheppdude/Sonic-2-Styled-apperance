@@ -1,0 +1,91 @@
+
+function u64 stringformat(u64 format, u64 arg1)
+{
+    if (format == "character_knuckles_0x%02x")
+    {
+
+        if(char.state == char.state.BALANCING1)
+        {
+			format = "knuckles_balance_2_%d"
+			arg1 = (level.framecounter >> 3) % 6 
+        }
+        else if (char.state == char.state.BALANCING2)
+        {
+			format = "knuckles_balance_1_%d"
+			arg1 = (level.framecounter >> 2) % 6           
+        }
+    }
+    else if (format == "character_supersonic_0x%02x")
+    {
+        if (char.state == char.state.BALANCING2)
+        {
+			format = "supersonic_balance_%d"
+			arg1 = (level.framecounter >> 3) % 4   
+        }
+    }
+    if (format == "character_tails_0x%02x")
+    {
+
+        if(char.state == char.state.BALANCING1)
+        {
+            ++tailsbalancingtime
+            if (tailsbalancingtime > 0) && (tailsbalancingtime <= 10) 
+            {
+			    format = "tails_balance_4"
+				arg1 = (level.framecounter >> 0) % 1            
+            }
+            if (tailsbalancingtime > 10) && (tailsbalancingtime <= 20) 
+            {
+			    format = "tails_balance_5"
+				arg1 = (level.framecounter >> 0) % 1                           
+            }
+            if (tailsbalancingtime > 20) && (tailsbalancingtime <= 30)
+            {
+			    format = "tails_balance_6"
+				arg1 = (level.framecounter >> 0) % 1             
+            }
+            if (tailsbalancingtime > 30)
+            {
+			    format = "tails_balance_4"
+				arg1 = (level.framecounter >> 0) % 1  
+                tailsbalancingtime = 1             
+            }
+        }
+        else if (char.state == char.state.BALANCING2)
+        {
+            ++tailsbalancingtime
+            if (tailsbalancingtime > 0) && (tailsbalancingtime <= 10) 
+            {
+			    format = "tails_balance_0"
+				arg1 = (level.framecounter >> 0) % 1            
+            }
+            if (tailsbalancingtime > 10) && (tailsbalancingtime <= 20) 
+            {
+			    format = "tails_balance_1"
+				arg1 = (level.framecounter >> 0) % 1                           
+            }
+            if (tailsbalancingtime > 20) && (tailsbalancingtime <= 30)
+            {
+			    format = "tails_balance_2"
+				arg1 = (level.framecounter >> 0) % 1             
+            }
+            if (tailsbalancingtime > 30) && (tailsbalancingtime <= 40)
+            {
+			    format = "tails_balance_3"
+				arg1 = (level.framecounter >> 0) % 1  
+                tailsbalancingtime = 1             
+            }
+            if (tailsbalancingtime > 40) 
+            {
+			    format = "tails_balance_0"
+				arg1 = (level.framecounter >> 0) % 1  
+                tailsbalancingtime = 1             
+            }
+        }
+        else 
+        {
+            tailsbalancingtime = 0
+        }
+    }
+    return base.stringformat(format, arg1)
+}
