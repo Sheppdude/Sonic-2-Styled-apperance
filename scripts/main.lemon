@@ -99,21 +99,6 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			}
 		}			
 	}
-	    if (character == CHARACTER_TAILS)
-		{
-			if (super.active.tails)
-			{
-                key = stringformat("character_supertails_0x%02x", animationSpriteEx)
-			}
-		}
-		if (char.character == CHARACTER_KNUCKLES)
-		{
-			if (super.active)
-			{
-                key = stringformat("character_superknuckles_0x%02x", animationSpriteEx)
-			}
-		}
-		// Why was this so easy to do lmao
 
 		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
 		{
@@ -174,12 +159,22 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			else
 				oldRotationPlayer2 = angle
 		}
+		if (super.active.tails) // Allows Tails to use the sprites when Sonic or Knuckles is the main character (useful for super teams)
+		{
+            key = stringformat("character_supertails_0x%02x", animationSprite)
+		}
+        else if (char.character == CHARACTER_KNUCKLES) // Have to check for knuckles or else it will overwrite Super Sonic
+		{
+			if (super.active)
+			{
+                key = stringformat("character_superknuckles_0x%02x", animationSprite)
+			}
+		}
+		// Why was this so easy to do lmao
 
 
 		if (animationSpriteEx >= 0x100)
 		{
-			
-
 			// Special handling for Super Peel-Out
 			        
 			if (super.active) 
