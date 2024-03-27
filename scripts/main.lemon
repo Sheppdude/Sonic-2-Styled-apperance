@@ -1,11 +1,7 @@
-include peelout
 include balance
 include victory
-include superidle
 include sonic/?
-include knuckles/?
 include springtwirl/?
-include falling/?
 
 global u8 stt16bfx //Option for using STT 16 Bit sprites and sounds in DDZ
 global u8 sonicspringtwirl // For defining when Sonic has touched the spring (or any other object that triggers the animation), likewise for the rest of the characters
@@ -71,7 +67,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	u16 animationSpriteEx = Standalone.getModdedAnimationSpriteEx(character, animationSprite)
 	u8 flags = (char.render_flags & 0x03)
 	u8 angle = 0
-	u64 key = 0
+	u64 key = Standalone.getModdedAnimationSpriteKey(character, animationSpriteEx)	
 	u8 rotationMode = 0
 
 	if (variant < 2)
@@ -83,22 +79,29 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			{
 				animationSpriteEx = CHAR_ANIMSPRITE_SONIC_DROPDASH + (level.framecounter & 0x0F)
 			}
-	    else if (animationSprite >= 0x21 && animationSprite <= 0x30)
-    	{
-    		if (sonic.fastrunanim.timer > 0)
-			{
+	        else if (animationSprite >= 0x21 && animationSprite <= 0x30)
+    	    {
+    		    if (sonic.fastrunanim.timer > 0)
+			    {
 
-				animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + (level.framecounter & 0x03)
-				if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
-				{
-					angle = (animationSprite - 0x21) / 4 * 0xe0
-					if (char.flags & char.flag.FACING_LEFT)
-					angle = -angle
-					animationSprite = 0x21 + (animationSprite - 0x21) % 4
-				}
+				    animationSpriteEx = CHAR_ANIMSPRITE_SONIC_PEELOUT + (level.framecounter & 0x03)
+				    if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
+				    {
+					    angle = (animationSprite - 0x21) / 4 * 0xe0
+					    if (char.flags & char.flag.FACING_LEFT)
+					    angle = -angle
+					    animationSprite = 0x21 + (animationSprite - 0x21) % 4
+				    }
+			    }
+		    }
+			if (fall == 1 && !super.active)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 3
+				key = stringformat("sonic_fall_%d", animationSpriteEx)
 			}
-		}			
-	}
+	    }
+
+
 
 		if (Game.getSetting(SETTING_SMOOTH_ROTATION))
 		{
@@ -159,19 +162,88 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			else
 				oldRotationPlayer2 = angle
 		}
-		if (super.active.tails) // Allows Tails to use the sprites when Sonic or Knuckles is the main character (useful for super teams)
-		{
-            key = stringformat("character_supertails_0x%02x", animationSprite)
-		}
-        else if (char.character == CHARACTER_KNUCKLES) // Have to check for knuckles or else it will overwrite Super Sonic
+		if (character == CHARACTER_KNUCKLES) // Have to check for knuckles or else it will overwrite Super Sonic
 		{
 			if (super.active)
 			{
                 key = stringformat("character_superknuckles_0x%02x", animationSprite)
+				if (animationSprite >= 0xad && animationSprite <= 0xaf)
+				{
+					animationSpriteEx = (level.framecounter >> 3) % 3
+					key = stringformat("character_superknuckles_standing_%d", animationSpriteEx)		
+				}
+			}
+			if (abs(char.groundspeed) >= 0xa99)
+            {
+			    if (animationSprite >= 0x21 && animationSprite <= 0x30)
+			    {
+					animationSpriteEx = (level.framecounter & 0x03)
+					if (super.active)
+					{
+						key = stringformat("superknuckles_dash_%d", animationSpriteEx)
+					}
+					else
+					{
+						key = stringformat("knuckles_dash_%d", animationSpriteEx)
+					}
+					if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
+				    {
+					    angle = (animationSprite - 0x21) / 4 * 0xe0
+					    if (char.flags & char.flag.FACING_LEFT)
+					    angle = -angle
+					    animationSprite = 0x21 + (animationSprite - 0x21) % 4
+				    }				
+			    }
+			}
+			if (knuckles.glideclimbstate & 0x02) && (animationSpriteEx == 0xc0)
+            {
+                animationSpriteEx = (level.framecounter >> 3) % 2
+				if (super.active)
+				{
+					key = stringformat("superknux_glide_%d", animationSpriteEx)			
+				}
+				else
+				{
+					key = stringformat("knux_glide_%d", animationSpriteEx)
+				}
+            }
+			if (fall == 1)
+			{
+				animationSprite = 0xcb
 			}
 		}
-		// Why was this so easy to do lmao
-
+		if (character == CHARACTER_TAILS)
+		{
+			if (super.active.tails)
+		    {
+                key = stringformat("character_supertails_0x%02x", animationSprite)
+				if (animationSprite >= 0xad && animationSprite <= 0xaf)
+				{
+					animationSpriteEx = (level.framecounter >> 3) % 3
+					key = stringformat("character_supertails_standing_%d", animationSpriteEx)		
+				}
+		    }
+			if (abs(char.groundspeed) >= 0x0a99)
+            {
+			    if (animationSprite >= 0xc3 && animationSprite <= 0xca)
+			    {
+					animationSpriteEx = (level.framecounter & 0x03)
+	                key = stringformat("tails_dash_%d", animationSpriteEx)
+					if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
+				    {
+					    angle = (animationSprite - 0xc3) / 4 * 0xe0
+					    if (char.flags & char.flag.FACING_LEFT)
+					    angle = -angle
+					    animationSprite = 0xc3 + (animationSprite - 0xc3) % 4
+				    }			
+			    }
+            }
+			if (tailsfall == 1)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 4
+				key = stringformat("tails_fall_%d", animationSpriteEx)
+			}
+		}
 
 		if (animationSpriteEx >= 0x100)
 		{
