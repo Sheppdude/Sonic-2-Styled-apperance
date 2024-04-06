@@ -1,7 +1,7 @@
 {
-	"knuckles_twirl_0":  { "File": "character_knuckles_twirl.bmp", "Rect": "1,0,29,46", "Center": "14,21" },
-	"knuckles_twirl_1":  { "File": "character_knuckles_twirl.bmp", "Rect": "38,0,29,46", "Center": "14,21" },
-	"knuckles_twirl_2":  { "File": "character_knuckles_twirl.bmp", "Rect": "76,0,29,45", "Center": "14,21" },
-	"knuckles_twirl_3":  { "File": "character_knuckles_twirl.bmp", "Rect": "118,0,29,45", "Center": "14,21" },
-	"knuckles_twirl_4":  { "File": "character_knuckles_twirl.bmp", "Rect": "156,0,29,46", "Center": "14,21" }
+	"knuckles_twirl_0":  { "File": "knuckles/character_knuckles_twirl.bmp", "Rect": "1,0,29,46", "Center": "14,21" },
+	"knuckles_twirl_1":  { "File": "knuckles/character_knuckles_twirl.bmp", "Rect": "38,0,29,46", "Center": "14,21" },
+	"knuckles_twirl_2":  { "File": "knuckles/character_knuckles_twirl.bmp", "Rect": "76,0,29,45", "Center": "14,21" },
+	"knuckles_twirl_3":  { "File": "knuckles/character_knuckles_twirl.bmp", "Rect": "118,0,29,45", "Center": "14,21" },
+	"knuckles_twirl_4":  { "File": "knuckles/character_knuckles_twirl.bmp", "Rect": "156,0,29,46", "Center": "14,21" }
 }

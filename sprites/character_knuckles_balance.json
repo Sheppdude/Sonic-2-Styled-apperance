@@ -1,14 +1,14 @@
 {
-	"knuckles_balance_1_0":  { "File": "character_knuckles_balance.bmp", "Rect": "0,8,39,48", "Center": "24,28" },
-	"knuckles_balance_1_1":  { "File": "character_knuckles_balance.bmp", "Rect": "50,8,36,48", "Center": "23,28" },
-	"knuckles_balance_1_2":  { "File": "character_knuckles_balance.bmp", "Rect": "99,8,38,48", "Center": "23,28" },
-	"knuckles_balance_1_3":  { "File": "character_knuckles_balance.bmp", "Rect": "150,8,36,48", "Center": "21,28" },
-	"knuckles_balance_1_4":  { "File": "character_knuckles_balance.bmp", "Rect": "197,8,39,48", "Center": "23,28" },
-	"knuckles_balance_1_5":  { "File": "character_knuckles_balance.bmp", "Rect": "248,8,41,48", "Center": "21,28" },
-	"knuckles_balance_2_0":  { "File": "character_knuckles_balance.bmp", "Rect": "1,68,47,45", "Center": "30,26" },
-	"knuckles_balance_2_1":  { "File": "character_knuckles_balance.bmp", "Rect": "50,68,47,45", "Center": "30,26" },
-	"knuckles_balance_2_2":  { "File": "character_knuckles_balance.bmp", "Rect": "99,68,47,45", "Center": "30,26" },
-	"knuckles_balance_2_3":  { "File": "character_knuckles_balance.bmp", "Rect": "148,68,47,45", "Center": "30,26" },
-	"knuckles_balance_2_4":  { "File": "character_knuckles_balance.bmp", "Rect": "197,68,47,45", "Center": "30,26" },
-	"knuckles_balance_2_5":  { "File": "character_knuckles_balance.bmp", "Rect": "246,68,47,45", "Center": "30,26" }
+	"knuckles_balance_1_0":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "0,8,39,48", "Center": "24,28" },
+	"knuckles_balance_1_1":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "50,8,36,48", "Center": "23,28" },
+	"knuckles_balance_1_2":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "99,8,38,48", "Center": "23,28" },
+	"knuckles_balance_1_3":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "150,8,36,48", "Center": "21,28" },
+	"knuckles_balance_1_4":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "197,8,39,48", "Center": "23,28" },
+	"knuckles_balance_1_5":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "248,8,41,48", "Center": "21,28" },
+	"knuckles_balance_2_0":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "1,68,47,45", "Center": "30,26" },
+	"knuckles_balance_2_1":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "50,68,47,45", "Center": "30,26" },
+	"knuckles_balance_2_2":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "99,68,47,45", "Center": "30,26" },
+	"knuckles_balance_2_3":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "148,68,47,45", "Center": "30,26" },
+	"knuckles_balance_2_4":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "197,68,47,45", "Center": "30,26" },
+	"knuckles_balance_2_5":  { "File": "knuckles/character_knuckles_balance.bmp", "Rect": "246,68,47,45", "Center": "30,26" }
 }

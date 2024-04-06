@@ -1,6 +1,6 @@
 {
-	"knuckles_dash_0":  { "File": "character_knuckles_dash.bmp", "Rect": "51,0,40,48", "Center": "24,30" },
-	"knuckles_dash_1":  { "File": "character_knuckles_dash.bmp", "Rect": "99,0,40,48", "Center": "25,30" },
-	"knuckles_dash_2":  { "File": "character_knuckles_dash.bmp", "Rect": "150,0,40,48", "Center": "23,30" },
-	"knuckles_dash_3":  { "File": "character_knuckles_dash.bmp", "Rect": "200,0,40,48", "Center": "22,30" }
+	"knuckles_dash_0":  { "File": "knuckles/character_knuckles_dash.bmp", "Rect": "51,0,40,48", "Center": "24,30" },
+	"knuckles_dash_1":  { "File": "knuckles/character_knuckles_dash.bmp", "Rect": "99,0,40,48", "Center": "25,30" },
+	"knuckles_dash_2":  { "File": "knuckles/character_knuckles_dash.bmp", "Rect": "150,0,40,48", "Center": "23,30" },
+	"knuckles_dash_3":  { "File": "knuckles/character_knuckles_dash.bmp", "Rect": "200,0,40,48", "Center": "22,30" }
 }

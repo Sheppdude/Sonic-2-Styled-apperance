@@ -1,7 +1,6 @@
 include balance
 include victory
-include sonic/?
-include springtwirl/?
+include sonic/idle
 
 global u8 stt16bfx //Option for using STT 16 Bit sprites and sounds in DDZ
 global u8 sonicspringtwirl // For defining when Sonic has touched the spring (or any other object that triggers the animation), likewise for the rest of the characters
@@ -22,9 +21,6 @@ global u8 sonicvictoryframe
 
 function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s16 py, bool asSmallGhost)
 {
-	if (char.state == char.state.SONIC_DROPDASH) // return base function so that it doesn't replace peelout sprites if he isn't dropdashing
-    return base.Standalone.drawCharacterSprite(character, variant, px, py, asSmallGhost)
-
 	bool isPlayer1 = (variant == 0)
 	u32 characterAddress = isPlayer1 ? 0xffffb000 : 0xffffb04a
 
@@ -78,6 +74,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			if (char.state == char.state.SONIC_DROPDASH)
 			{
 				animationSpriteEx = CHAR_ANIMSPRITE_SONIC_DROPDASH + (level.framecounter & 0x0F)
+				key = stringformat("sonic_dropdash_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_DROPDASH)	
 			}
 	        else if (animationSprite >= 0x21 && animationSprite <= 0x30)
     	    {
@@ -96,8 +93,23 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 		    }
 			if (fall == 1 && !super.active)
 			{
-				animationSpriteEx = (level.framecounter >> 3) % 3
-				key = stringformat("sonic_fall_%d", animationSpriteEx)
+				if (char.state != char.state.GOT_HURT) // Make sure that the sprites don't show up when you take damage
+				{
+					animationSpriteEx = (level.framecounter >> 3) % 3
+				    key = stringformat("sonic_fall_%d", animationSpriteEx)
+				}
+			}
+			if (sonicspringtwirl == 1)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 5
+				if (super.active)
+				{
+					key = stringformat("supersonic_twirl_%d", animationSpriteEx)
+				}
+				else 
+				{
+					key = stringformat("sonic_twirl_%d", animationSpriteEx)
+				}
 			}
 	    }
 
@@ -166,8 +178,8 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 		{
 			if (super.active)
 			{
-                key = stringformat("character_superknuckles_0x%02x", animationSprite)
-				if (animationSprite >= 0xad && animationSprite <= 0xaf)
+                key = stringformat("character_superknuckles_0x%02x", animationSprite) // Don't Use animationSpriteEx unless it uses custom values, as it breaks rotation
+				if (animationSprite == 0x56)
 				{
 					animationSpriteEx = (level.framecounter >> 3) % 3
 					key = stringformat("character_superknuckles_standing_%d", animationSpriteEx)		
@@ -209,7 +221,22 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
             }
 			if (fall == 1)
 			{
-				animationSprite = 0xcb
+				if (char.state != char.state.GOT_HURT) // Make sure that the sprites don't show up when you take damage
+				{
+					animationSprite = 0xcb
+				}
+			}
+			if (knucklesspringtwirl == 1)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 5
+				if (super.active)
+				{
+					key = stringformat("superknuckles_twirl_%d", animationSpriteEx)
+				}
+				else
+				{
+					key = stringformat("knuckles_twirl_%d", animationSpriteEx)
+				}
 			}
 		}
 		if (character == CHARACTER_TAILS)
@@ -228,7 +255,14 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			    if (animationSprite >= 0xc3 && animationSprite <= 0xca)
 			    {
 					animationSpriteEx = (level.framecounter & 0x03)
-	                key = stringformat("tails_dash_%d", animationSpriteEx)
+					if (super.active)
+					{
+						key = stringformat("supertails_dash_%d", animationSpriteEx)
+					}
+					else
+					{
+						key = stringformat("tails_dash_%d", animationSpriteEx)
+					}
 					if (!Game.getSetting(SETTING_SMOOTH_ROTATION))
 				    {
 					    angle = (animationSprite - 0xc3) / 4 * 0xe0
@@ -240,19 +274,28 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
             }
 			if (tailsfall == 1)
 			{
-				animationSpriteEx = (level.framecounter >> 3) % 4
-				key = stringformat("tails_fall_%d", animationSpriteEx)
+				if (char.state != char.state.GOT_HURT) // Make sure that the sprites don't show up when you take damage
+				{
+					animationSpriteEx = (level.framecounter >> 3) % 4
+				    key = stringformat("tails_fall_%d", animationSpriteEx)
+				}
+			}
+			if (tailsspringtwirl = 1)
+			{
+				animationSpriteEx = (level.framecounter >> 3) % 5
+				key = stringformat("tails_twirl_%d", animationSpriteEx)
 			}
 		}
 
 		if (animationSpriteEx >= 0x100)
 		{
 			// Special handling for Super Peel-Out
-			        
-			if (super.active) 
+			if (animationSpriteEx >= CHAR_ANIMSPRITE_SONIC_PEELOUT && sonic.fastrunanim.timer > 0)
 			{
-			  if (superflystate == 0) 
-			  {
+				if (super.active) 
+			    {
+			        if (superflystate == 0) 
+			        {
 				    if (suppeeloutstyle == 0) 
 				    {
                         key = stringformat ("super_peelout_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
@@ -261,55 +304,53 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 				    {
                         key = stringformat ("super_peelout_tt_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
 				    }
-					else if (suppeeloutstyle == 2)
-					{
-                        key = stringformat ("super_peelout_sa_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-					}
-			  }
-			  else if (superflystate > 0) 
-			  {
-				   if (superflystate == 1) 
-				   {
-					 key = stringformat ("super_fly_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-				   }
-				   else if (superflystate == 2)
-				   {
-					    if (animframe < 7) 
-					    {
-					        key = stringformat ("super_fly_down_pre_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-					    }
-					    else if (animframe >= 7)
-					    {
-					        key = stringformat ("super_fly_down_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)					
-					    }
-				   }
-				   else if (superflystate == 3)
-				   {
-					    if (animframe < 7) 
-					    {
-					        key = stringformat ("super_fly_up_pre_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-					    }
-					    else if (animframe >= 7)
-					    {
-					        key = stringformat ("super_fly_up_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)					
-					    }
-				   }
-			  }
-			} 
-			else if (!super.active) 
+			        }
+			        else if (superflystate > 0) 
+			        {
+				        if (superflystate == 1) 
+				        {
+					        key = stringformat ("super_fly_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+				        }
+				        else if (superflystate == 2)
+				        {
+					        if (animframe < 7) 
+					        {
+					            key = stringformat ("super_fly_down_pre_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+					        }
+					        else if (animframe >= 7)
+					        {
+					            key = stringformat ("super_fly_down_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)					
+					        }
+				        }
+				        else if (superflystate == 3)
+				        {
+					        if (animframe < 7) 
+					        {
+					            key = stringformat ("super_fly_up_pre_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+					        }
+					        else if (animframe >= 7)
+					        {
+					             key = stringformat ("super_fly_up_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)					
+					        }
+				        }
+			        }
+			    } 
+			    else if (!super.active) 
+			    {
+	                if (peeloutstyle == 0)
+			        {
+				        key = stringformat("sonic_peelout_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+			        }
+			        else if (peeloutstyle == 1) 
+			        {
+				         key = stringformat("sonic_peelout_mania_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+			        }
+			    }
+			}   
+			if (animationSpriteEx == CHAR_ANIMSPRITE_SONIC_DROPDASH) 
 			{
-	            if (peeloutstyle == 0)
-			    {
-				    key = stringformat("sonic_peelout_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-			    }
-			    else if (peeloutstyle == 1) 
-			    {
-				    key = stringformat("sonic_peelout_mania_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-			    }
-			}
-		
-	
-		  									
+				key = stringformat("sonic_dropdash_default_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_DROPDASH)		
+			}								
 		}		
 		if (isPlayer1)
 			timeattack.animSpriteEx = animationSpriteEx
@@ -440,34 +481,9 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 
 	// Prevent emulator-like rendering
 	return true
+	return base.Standalone.drawCharacterSprite(character, variant, px, py, asSmallGhost)
 }
 
-function u16 SuperSpriteRotation(u8 character, u16 animationSpriteEx)
-{
-	// Character
-	if (animationSpriteEx >= 0x01 && animationSpriteEx <= 0x20)
-	{
-		// Walking animation
-		animationSpriteEx = 0x01 + (animationSpriteEx - 0x01) % 1
-	}
-	else if (animationSpriteEx >= 0x21 && animationSpriteEx <= 0x30)
-	{
-		// Running animation
-		animationSpriteEx = 0x21 + (animationSpriteEx - 0x21) % 1
-	}
-	else if (animationSpriteEx >= 0x78 && animationSpriteEx <= 0x7f)
-	{
-		// Swinging animation
-		animationSpriteEx = 0x78
-	}
-	else if (character == CHARACTER_TAILS && animationSpriteEx >= 0xc3 && animationSpriteEx <= 0xca)
-    {
-		// Tails' fastest run animation
-		animationSpriteEx = 0xc3 + (animationSpriteEx - 0xc3) % 1
-	}
-	return animationSpriteEx
-
-}
 
 // Helper functions
 
