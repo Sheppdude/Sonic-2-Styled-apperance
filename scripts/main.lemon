@@ -282,8 +282,11 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			}
 			if (tailsspringtwirl = 1)
 			{
-				animationSpriteEx = (level.framecounter >> 3) % 5
-				key = stringformat("tails_twirl_%d", animationSpriteEx)
+				if (animationSpriteEx == 0x8b || animationSpriteEx == 0x8c)
+				{
+					animationSpriteEx = (level.framecounter >> 3) % 5
+					key = stringformat("tails_twirl_%d", animationSpriteEx)
+				}
 			}
 		}
 
