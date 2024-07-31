@@ -1,28 +1,6 @@
 
 function u64 stringformat(u64 format, u64 arg1)
 {
-    if (format == "character_knuckles_0x%02x")
-    {
-
-        if(char.state == char.state.BALANCING1)
-        {
-			format = "knuckles_balance_2_%d"
-			arg1 = (level.framecounter >> 3) % 6 
-        }
-        else if (char.state == char.state.BALANCING2)
-        {
-			format = "knuckles_balance_1_%d"
-			arg1 = (level.framecounter >> 2) % 6           
-        }
-    }
-    else if (format == "character_supersonic_0x%02x")
-    {
-        if (char.state == char.state.BALANCING2)
-        {
-			format = "supersonic_balance_%d"
-			arg1 = (level.framecounter >> 3) % 4   
-        }
-    }
     if (format == "character_tails_0x%02x")
     {
 

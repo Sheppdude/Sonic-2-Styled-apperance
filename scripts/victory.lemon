@@ -99,7 +99,7 @@ function u64 stringformat(u64 format, u64 arg1)
    }
     if (format == "character_sonic_0x%02x")
     {
-        if(char.state == char.state.WIN_POSE && sonicvictoryanim == 1) 
+        if(char.state == char.state.WIN_POSE) 
         {  
             ++sonicvictoryframe
             if (sonicvictoryframe <= 5)
@@ -149,28 +149,28 @@ function u64 stringformat(u64 format, u64 arg1)
             }
             if (sonicvictoryframe > 62) && (sonicvictoryframe <= 67)
             {
-                format = "sonic_victory_base_9"
-            arg1 = (level.framecounter >> 0) % 1  
+               format = "sonic_victory_base_9"
+               arg1 = (level.framecounter >> 0) % 1  
             }
             if (sonicvictoryframe > 67) && (sonicvictoryframe <= 72)
             {
-                format = "sonic_victory_base_10"
-                arg1 = (level.framecounter >> 0) % 1  
+               format = "sonic_victory_base_10"
+               arg1 = (level.framecounter >> 0) % 1  
             } 
             if (sonicvictoryframe > 72) && (sonicvictoryframe <= 77)
             {
-                format = "sonic_victory_base_11"
-                arg1 = (level.framecounter >> 0) % 1  
+               format = "sonic_victory_base_11"
+               arg1 = (level.framecounter >> 0) % 1  
             }
             if (sonicvictoryframe > 77)
             {
-                format = "sonic_victory_base_12"
-                arg1 = (level.framecounter >> 0) % 1
+               format = "sonic_victory_base_12"
+               arg1 = (level.framecounter >> 0) % 1
             }
         }
-        else 
+        else
         {
-           sonicvictoryframe = 0
+            sonicvictoryframe = 0
         }
    }
    return base.stringformat(format, arg1)
